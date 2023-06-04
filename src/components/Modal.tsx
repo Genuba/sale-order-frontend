@@ -1,8 +1,8 @@
 import { FC, FormEvent, useState } from 'react'
-import { useCameras } from '../hooks/useCameras'
+import { useSaleOrderItems } from '../hooks/useSaleOrderItems'
 import { useForm } from '../hooks/useForm'
-import { Camera, CameraDTO } from '../interfaces'
-import { addCamera, editCamera } from '../services'
+import { SaleOrderItem, SaleOrderItemDTO } from '../interfaces'
+import { addSaleOrderItem, editSaleOrderItem } from '../services'
 import { Button } from './Button'
 import { FileInput } from './FileInput'
 import { RawModal } from './RawModal'
@@ -11,7 +11,7 @@ import { TextInput } from './TextInput'
 interface ModalProps {
   onClose: () => void
   isEdit?: boolean
-  item?: Camera
+  item?: SaleOrderItem
 }
 
 export const Modal: FC<ModalProps> = ({ onClose, isEdit, item }) => {
@@ -21,9 +21,9 @@ export const Modal: FC<ModalProps> = ({ onClose, isEdit, item }) => {
   const [imgPath, setImgPath] = useState({} as File)
   const [imgPreview, setImgPreview] = useState<ArrayBuffer | string>('')
 
-  const { dispatch } = useCameras()
+  const { dispatch } = useSaleOrderItems()
 
-  const { values, handlerChange } = useForm<CameraDTO>({
+  const { values, handlerChange } = useForm<SaleOrderItemDTO>({
     name: isEdit ? item!.name : '',
     model: isEdit ? item!.model : '',
     brand: isEdit ? item!.brand : '',
@@ -47,10 +47,10 @@ export const Modal: FC<ModalProps> = ({ onClose, isEdit, item }) => {
       setIsValid(false)
       setError(false)
 
-      const { error, dataCamera } = await addCamera(values, imgPath)
+      const { error, dataSaleOrderItem } = await addSaleOrderItem(values, imgPath)
 
       if (!error) {
-        dispatch({ type: 'ADD_CAMERA', payload: dataCamera })
+        dispatch({ type: 'ADD_SALE_ORDER_ITEM', payload: dataSaleOrderItem })
         onClose()
         return
       }
@@ -78,7 +78,7 @@ export const Modal: FC<ModalProps> = ({ onClose, isEdit, item }) => {
       setIsValid(false)
       setError(false)
 
-      const { error, dataCamera } = await editCamera(
+      const { error, dataSaleOrderItem } = await editSaleOrderItem(
         item?._id!,
         values,
         imgPath
@@ -86,8 +86,8 @@ export const Modal: FC<ModalProps> = ({ onClose, isEdit, item }) => {
 
       if (!error) {
         dispatch({
-          type: 'EDIT_CAMERA',
-          payload: { ...item!, ...dataCamera }
+          type: 'EDIT_SALE_ORDER_ITEM',
+          payload: { ...item!, ...dataSaleOrderItem }
         })
 
         onClose()
@@ -110,7 +110,7 @@ export const Modal: FC<ModalProps> = ({ onClose, isEdit, item }) => {
         className='flex flex-col -mt-4 p-5 space-y-4 lg:px-8 sm:pb-6 xl:pb-8'
       >
         <h3 className='text-xl text-center font-medium text-gray-600'>
-          {isEdit ? 'Edit camera' : 'Add a new Camera'}
+          {isEdit ? 'Edit saleOrderItem' : 'Add a new SaleOrderItem'}
         </h3>
 
         <TextInput

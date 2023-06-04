@@ -54,7 +54,7 @@ export const Table: FC = ({ children }) => {
                 </tr>
               </thead>
               <tbody>
-                {/* Cameras */}
+                {/* SaleOrderItems */}
                 {children}
               </tbody>
             </table>

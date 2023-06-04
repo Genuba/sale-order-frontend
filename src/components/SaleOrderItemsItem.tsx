@@ -1,19 +1,19 @@
 import { FC, useState } from 'react'
-import { useCameras } from '../hooks/useCameras'
-import { Camera } from '../interfaces'
-import { deleteCamera } from '../services'
+import { useSaleOrderItems } from '../hooks/useSaleOrderItems'
+import { SaleOrderItem } from '../interfaces'
+import { deleteSaleOrderItem } from '../services'
 import { Dialog } from './Dialog'
 import { Modal } from './Modal'
 import { BASE_URL } from '../utils/base-url'
 
-interface CamerasItemProps {
-  camera: Camera
+interface SaleOrderItemsItemProps {
+  saleOrderItem: SaleOrderItem
 }
 
-export const CamerasItem: FC<CamerasItemProps> = ({ camera }) => {
-  const { name, model, brand, price, _id, image, connection_type } = camera
+export const SaleOrderItemsItem: FC<SaleOrderItemsItemProps> = ({ saleOrderItem }) => {
+  const { quantity, unitPrice, totalPrice, productId, saleOrderId, id } = saleOrderItem
 
-  const { dispatch } = useCameras()
+  const { dispatch } = useSaleOrderItems()
   const [showDialogDelete, setShowDialogDelete] = useState(false)
   const [showDialogEdit, setShowDialogEdit] = useState(false)
   const [btnLoading, setBtnLoading] = useState(false)
@@ -23,10 +23,10 @@ export const CamerasItem: FC<CamerasItemProps> = ({ camera }) => {
     setBtnLoading(true)
     setError(false)
 
-    const { error } = await deleteCamera(_id)
+    const { error } = await deleteSaleOrderItem(id)
 
     if (!error) {
-      dispatch({ type: 'DELETE_CAMERA', payload: _id })
+      dispatch({ type: 'DELETE_SALE_ORDER_ITEM', payload: id })
       return
     }
 
@@ -37,22 +37,19 @@ export const CamerasItem: FC<CamerasItemProps> = ({ camera }) => {
   return (
     <>
       <tr className='border-b odd:bg-white even:bg-gray-100 odd:bg-white even:bg-gray-50 border-gray-50'>
-        <td className='py-4 px-6 text-sm'>
-          <img
-            src={`${BASE_URL}/${image}`}
-            alt={name}
-            className='h-10 w-10 object-cover rounded-full'
-          />
-        </td>
-        <td className='py-4 px-6 text-sm'>{name}</td>
-        <td className='py-4 px-6 text-sm whitespace-nowrap'>{model}</td>
-        <td className='py-4 px-6 text-sm whitespace-nowrap'>{brand}</td>
+        <td className='py-4 px-6 text-sm'>{id}</td>
+        <td className='py-4 px-6 text-sm whitespace-nowrap'>{quantity}</td>
+        <td className='py-4 px-6 text-sm whitespace-nowrap'>{unitPrice}</td>
         <td className='py-4 px-6 text-sm whitespace-nowrap'>
-          {connection_type}
+          {totalPrice}
         </td>
         <td className='flex py-4 px-6 text-sm whitespace-nowrap'>
           <p className='font-bold'>$</p>
-          {price}
+          {productId}
+        </td>
+        <td className='flex py-4 px-6 text-sm whitespace-nowrap'>
+          <p className='font-bold'>$</p>
+          {saleOrderId}
         </td>
         <td className='py-4 px-6 text-sm whitespace-nowrap space-x-3'>
           <button
@@ -84,7 +81,7 @@ export const CamerasItem: FC<CamerasItemProps> = ({ camera }) => {
       )}
 
       {showDialogEdit && (
-        <Modal isEdit item={camera} onClose={() => setShowDialogEdit(false)} />
+        <Modal isEdit item={saleOrderItem} onClose={() => setShowDialogEdit(false)} />
       )}
     </>
   )

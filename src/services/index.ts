@@ -1,22 +1,21 @@
 import axios from 'axios'
-import { Camera, CameraDTO } from '../interfaces'
+import { SaleOrderItem, SaleOrderItemDTO } from '../interfaces'
 import { API_URL } from '../utils/base-url'
 
-export const addCamera = async (newCamera: CameraDTO, image: File) => {
-  const result = { dataCamera: {} as Camera, error: false }
+export const addSaleOrderItem = async (newSaleOrderItem: SaleOrderItemDTO, image: File) => {
+  const result = { dataSaleOrderItem: {} as SaleOrderItem, error: false }
 
-  const { name, model, brand, connection_type, price } = newCamera
+  const { quantity, unitPrice, totalPrice, productId, saleOrderId } = newSaleOrderItem
   const FD = new FormData()
-  FD.append('name', name)
-  FD.append('model', model)
-  FD.append('brand', brand)
-  FD.append('connection_type', connection_type)
-  FD.append('price', price as string)
-  FD.append('img', image)
+  FD.append('quantity', quantity)
+  FD.append('unitPrice', unitPrice)
+  FD.append('totalPrice', totalPrice)
+  FD.append('productId', productId)
+  FD.append('saleOrderId', saleOrderId)
 
   try {
     const { data } = await axios.post(`${API_URL}/add`, FD)
-    result.dataCamera = data
+    result.dataSaleOrderItem = data
   } catch (e) {
     result.error = true
     console.error(e)
@@ -25,25 +24,24 @@ export const addCamera = async (newCamera: CameraDTO, image: File) => {
   return result
 }
 
-export const editCamera = async (
+export const editSaleOrderItem = async (
   id: string,
-  cameraEdited: CameraDTO,
+  saleOrderItemEdited: SaleOrderItemDTO,
   image: File
 ) => {
-  const result = { dataCamera: {} as Camera, error: false }
+  const result = { dataSaleOrderItem: {} as SaleOrderItem, error: false }
 
-  const { name, model, brand, connection_type, price } = cameraEdited
+  const { quantity, unitPrice, totalPrice, productId, saleOrderId } = saleOrderItemEdited
   const FD = new FormData()
-  FD.append('name', name)
-  FD.append('model', model)
-  FD.append('brand', brand)
-  FD.append('connection_type', connection_type)
-  FD.append('price', price as string)
-  FD.append('img', image)
+  FD.append('quantity', quantity)
+  FD.append('unitPrice', unitPrice)
+  FD.append('totalPrice', totalPrice)
+  FD.append('productId', productId)
+  FD.append('saleOrderId', saleOrderId)
 
   try {
     const { data } = await axios.put(`${API_URL}/edit/${id}`, FD)
-    result.dataCamera = data
+    result.dataSaleOrderItem = data
   } catch (e) {
     result.error = true
     console.error(e)
@@ -52,7 +50,7 @@ export const editCamera = async (
   return result
 }
 
-export const deleteCamera = async (id: string) => {
+export const deleteSaleOrderItem = async (id: string) => {
   const result = { error: false }
 
   try {
