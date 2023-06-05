@@ -7,3 +7,4 @@ dist-ssr
 .env.local 
 .env.[mode]
 .env.[mode].local
+build
