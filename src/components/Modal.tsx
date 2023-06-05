@@ -147,17 +147,6 @@ export const Modal: FC<ModalProps> = ({ onClose, isEdit, item }) => {
           onChange={handlerChange}
         />
 
-        {/* <select
-          value={productId}
-          onChange={handlerChange}
-          name='productId'
-          className='py-1 px-3 border-2 border-gray-200 rounded-xl transition ease-in-out focus:border-cyan-500 focus:outline-none'
-        >
-          <option value='WIFI'>Wifi</option>
-          <option value='ETHERNET'>Ethernet</option>
-          <option value='IP'>IP</option>
-        </select> */}
-
         {/* Validation and Errors */}
         {isValid && (
           <div className="flex items-center justify-end">

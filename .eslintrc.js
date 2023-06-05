@@ -13,6 +13,7 @@ module.exports = {
   plugins: ["@typescript-eslint"],
   rules: {
     "no-console": "warn",
+    "@typescript-eslint/no-non-null-asserted-optional-chain": "error"
   },
   ignorePatterns: ["**/*.css", "**/*.scss"],
 };
