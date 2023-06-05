@@ -1,64 +1,47 @@
-import axios from 'axios'
-import { SaleOrderItem, SaleOrderItemDTO } from '../interfaces'
-import { API_URL } from '../utils/base-url'
+import axios from 'axios';
+import { SaleOrderItem, SaleOrderItemDTO } from '../interfaces';
+import { API_URL } from '../utils/base-url';
 
-export const addSaleOrderItem = async (newSaleOrderItem: SaleOrderItemDTO, image: File) => {
-  const result = { dataSaleOrderItem: {} as SaleOrderItem, error: false }
-
-  const { quantity, unitPrice, totalPrice, productId, saleOrderId } = newSaleOrderItem
-  const FD = new FormData()
-  FD.append('quantity', quantity)
-  FD.append('unitPrice', unitPrice)
-  FD.append('totalPrice', totalPrice)
-  FD.append('productId', productId)
-  FD.append('saleOrderId', saleOrderId)
+export const addSaleOrderItem = async (newSaleOrderItem: SaleOrderItemDTO) => {
+  const result = { dataSaleOrderItem: {} as SaleOrderItem, error: false };
 
   try {
-    const { data } = await axios.post(`${API_URL}/add`, FD)
-    result.dataSaleOrderItem = data
+    const { data } = await axios.post(`${API_URL}/`, newSaleOrderItem);
+    result.dataSaleOrderItem = data.data;
   } catch (e) {
-    result.error = true
-    console.error(e)
+    result.error = true;
+    console.error(e);
   }
 
-  return result
-}
+  return result;
+};
 
 export const editSaleOrderItem = async (
   id: string,
-  saleOrderItemEdited: SaleOrderItemDTO,
-  image: File
+  saleOrderItemEdited: SaleOrderItemDTO
 ) => {
-  const result = { dataSaleOrderItem: {} as SaleOrderItem, error: false }
-
-  const { quantity, unitPrice, totalPrice, productId, saleOrderId } = saleOrderItemEdited
-  const FD = new FormData()
-  FD.append('quantity', quantity)
-  FD.append('unitPrice', unitPrice)
-  FD.append('totalPrice', totalPrice)
-  FD.append('productId', productId)
-  FD.append('saleOrderId', saleOrderId)
+  const result = { dataSaleOrderItem: {} as SaleOrderItem, error: false };
 
   try {
-    const { data } = await axios.put(`${API_URL}/edit/${id}`, FD)
-    result.dataSaleOrderItem = data
+    const { data } = await axios.put(`${API_URL}/${id}`, saleOrderItemEdited);
+    result.dataSaleOrderItem = data.data;
   } catch (e) {
-    result.error = true
-    console.error(e)
+    result.error = true;
+    console.error(e);
   }
 
-  return result
-}
+  return result;
+};
 
 export const deleteSaleOrderItem = async (id: string) => {
-  const result = { error: false }
+  const result = { error: false };
 
   try {
-    await axios.delete(`${API_URL}/delete/${id}`)
+    await axios.delete(`${API_URL}/${id}`);
   } catch (e) {
-    result.error = true
-    console.error(e)
+    result.error = true;
+    console.error(e);
   }
 
-  return result
-}
+  return result;
+};
