@@ -1,28 +1,50 @@
-export interface Camera {
-  _id: string
-  name: string
-  brand: string
-  model: string
-  price: number | string
-  connection_type: 'WIFI' | 'ETHERNET' | 'IP'
-  image: string
-  createdAt?: string
-  __v: number
+export interface SaleOrderItem {
+  id: string;
+  quantity: string;
+  unitPrice: string;
+  totalPrice: string;
+  productId: string;
+  saleOrderId: string;
+  product: Product;
+  saleOrder: SaleOrder;
 }
 
-export type Cameras = Array<Camera>
-export type CameraDTO = Omit<Camera, '_id' | 'image' | 'createdAt' | '__v'>
+interface Product {
+  id: string;
+  name: string;
+  description: string;
+  category: string;
+  manufacturer: string;
+}
+
+interface SaleOrder {
+  id: string;
+  customer: string;
+  date: string;
+  status: string;
+}
+
+export interface RootSaleOrder {
+  message: string;
+  data: SaleOrderItems;
+}
+
+export type SaleOrderItems = Array<SaleOrderItem>;
+export type SaleOrderItemDTO = Omit<
+  SaleOrderItem,
+  'id' | 'product' | 'saleOrder'
+>;
 
 export interface ContextState {
-  cameras: Cameras
-  loading: boolean
-  error: string | null
+  saleOrderItems: SaleOrderItems;
+  loading: boolean;
+  error: string | null;
 }
 
-export type CamerasActions =
-  | { type: 'SET_CAMERAS', payload: Cameras }
-  | { type: 'SET_LOADING', payload: boolean }
-  | { type: 'SET_ERROR', payload: string }
-  | { type: 'ADD_CAMERA', payload: Camera }
-  | { type: 'EDIT_CAMERA', payload: Camera }
-  | { type: 'DELETE_CAMERA', payload: string }
+export type SaleOrderItemsActions =
+  | { type: 'SET_SALE_ORDER_ITEMS'; payload: SaleOrderItems }
+  | { type: 'SET_LOADING'; payload: boolean }
+  | { type: 'SET_ERROR'; payload: string }
+  | { type: 'ADD_SALE_ORDER_ITEM'; payload: SaleOrderItem }
+  | { type: 'EDIT_SALE_ORDER_ITEM'; payload: SaleOrderItem }
+  | { type: 'DELETE_SALE_ORDER_ITEM'; payload: string };

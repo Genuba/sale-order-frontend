@@ -22,7 +22,7 @@
 
 ## Description
 
-This project is a complete CRUD of a camera store made with ReactJS, which I made to practice CRUD operations and make requests to a [REST API that I made with NodeJS and Typescript](https://github.com/josemiguel02/nodejs-express-ts-mongodb), also for the UI I used TailwindCSS.
+This project is a complete CRUD of a saleOrderItem store made with ReactJS, which I made to practice CRUD operations and make requests to a [REST API that I made with NodeJS and Typescript](https://github.com/josemiguel02/nodejs-express-ts-mongodb), also for the UI I used TailwindCSS.
 
 ## Built With
 
@@ -68,7 +68,7 @@ Build the project
 
 ## Demo
 
-- [View demo](https://cameras-store.onrender.com)
+- [View demo](https://saleOrderItems-store.onrender.com)
 
 ## Contact
 

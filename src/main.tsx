@@ -1,12 +1,12 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import './index.css'
-import App from './App'
-import CamerasProvider from './context/CamerasProvider'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import SaleOrderItemsProvider from './context/SaleOrderItemsProvider';
 
 ReactDOM.render(
-  <CamerasProvider>
+  <SaleOrderItemsProvider>
     <App />
-  </CamerasProvider>,
+  </SaleOrderItemsProvider>,
   document.getElementById('root')
-)
+);
