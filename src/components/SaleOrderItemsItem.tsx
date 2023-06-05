@@ -4,7 +4,6 @@ import { SaleOrderItem } from '../interfaces';
 import { deleteSaleOrderItem } from '../services';
 import { Dialog } from './Dialog';
 import { Modal } from './Modal';
-import { BASE_URL } from '../utils/base-url';
 
 interface SaleOrderItemsItemProps {
   saleOrderItem: SaleOrderItem;
