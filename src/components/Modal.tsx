@@ -4,7 +4,6 @@ import { useForm } from '../hooks/useForm';
 import { SaleOrderItem, SaleOrderItemDTO } from '../interfaces';
 import { addSaleOrderItem, editSaleOrderItem } from '../services';
 import { Button } from './Button';
-import { FileInput } from './FileInput';
 import { RawModal } from './RawModal';
 import { TextInput } from './TextInput';
 
